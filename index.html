@@ -1,0 +1,132 @@
+<!doctype html>
+<html ng-app="todo">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
+
+        <title>TODO</title>
+
+        <script type="text/javascript" src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+
+        <link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
+        <link rel="import" href="bower_components/core-toolbar/core-toolbar.html">
+        <link rel="import" href="bower_components/core-menu/core-menu.html">
+        <link rel="import" href="bower_components/core-item/core-item.html">
+        <link rel="import" href="bower_components/core-label/core-label.html">
+        <link rel="import" href="bower_components/core-icons/core-icons.html">
+        <link rel="import" href="bower_components/core-icon-button/core-icon-button.html">
+        <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
+        <link rel="import" href="bower_components/paper-input/paper-input.html">
+
+        <style>
+
+            input[type=text] {
+                border: none;
+                border-bottom: #d3d3d3 1px solid;
+                padding: 0.5em;
+                padding-left: 0;
+            }
+
+            h1 {
+                text-align: center;
+            }
+
+            core-label {
+                height: 100%;
+                width: 100%;
+            }
+
+            core-item {
+                padding: 0.3em;
+                padding-left: 1em;
+                padding-right: 1em;
+            }
+
+            core-toolbar {
+                background: #4285f4;
+                color: white;
+            }
+
+            paper-checkbox {
+                margin-right: 1em;
+                /*margin-top: 0.5em;*/
+            }
+
+            paper-input {
+                width: 100%;
+            }
+
+        </style>
+    </head>
+    <body ng-controller="ListCtrl" fullbleed layout vertical unresolved>
+
+        <core-header-panel flex>
+            <core-toolbar>
+                <div flex>TODO</div>
+                <core-icon-button icon="clear" label="Clear completed" ng-click="clearCompleted($event)"></core-icon-button>
+            </core-toolbar>
+
+            <core-list>
+                <core-item ng-repeat="item in items" unresolved>
+                    <core-label id="item-{{ $index }}">
+                        <paper-checkbox for role="checkbox" aria-labeledby="item-{{ $index }}" ng-checked="item.completed" ng-click="toggle($index)"></paper-checkbox>
+                        {{ item.name }}
+                    </core-label>
+                </core-item>
+                <core-item unresolved>
+                    <paper-input label="Add" ng-keyup="add($event)" tabindex="1"></paper-input>
+                </core-item>
+            </core-list>
+        </core-header-panel>
+
+        <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+        <script type="text/javascript" src="bower_components/ng-polymer-elements/ng-polymer-elements.min.js"></script>
+        <script>
+            // todo app
+            var app = angular.module('todo', ['ng-polymer-elements'])
+
+            app.controller('ListCtrl', function($scope){
+                if (localStorage.items === undefined) {
+                    localStorage['items'] = JSON.stringify([])
+                }
+
+                $scope.items = JSON.parse(localStorage['items'])
+
+                $scope.add = function($event) {
+                    if ($event.keyCode == 13) {
+                        var name = $event.target.value
+                        var items = JSON.parse(localStorage['items'])
+                        items.push({completed: false, name: name})
+                        localStorage['items'] = JSON.stringify(items)
+
+                        $scope.items = items
+                        $event.target.value = ""
+
+                        console.log("Added new item: " + name)
+                    }
+                }
+
+                $scope.clearCompleted = function($event){
+                    $event.preventDefault()
+
+                    var items = JSON.parse(localStorage['items'])
+                    var cleared = items.filter(function(el) { return el.completed == false; })
+                    localStorage['items'] = JSON.stringify(cleared)
+                    $scope.items = cleared
+
+                    console.log("Cleared completed items.")
+                }
+
+                $scope.toggle = function($index) {
+                    var items = JSON.parse(localStorage['items'])
+                    items[$index].completed = !items[$index].completed
+                    localStorage['items'] = JSON.stringify(items)
+
+                    console.log("Toggled item: " + items[$index].name)
+                }
+            })
+        </script>
+    </body>
+</html>
