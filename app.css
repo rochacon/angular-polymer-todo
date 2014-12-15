@@ -1,0 +1,48 @@
+input[type=text] {
+    border: none;
+    border-bottom: #d3d3d3 1px solid;
+    padding: 0.5em;
+    padding-left: 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+core-label {
+    height: 100%;
+    width: 100%;
+}
+
+core-item {
+    padding: 0.3em;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+core-toolbar {
+    background: #4285f4;
+    color: white;
+}
+
+paper-checkbox {
+    margin-right: 1em;
+    /*margin-top: 0.5em;*/
+}
+
+paper-fab {
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+}
+
+paper-input {
+    width: 100%;
+}
+
+div.empty {
+    color: #777;
+    font-size: 14pt;
+    margin-top: 8em;
+    text-align: center;
+}

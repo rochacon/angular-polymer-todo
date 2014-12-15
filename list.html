@@ -1,0 +1,20 @@
+<core-toolbar>
+    <core-icon icon="done-all"></core-icon>
+    <div flex>TODO</div>
+    <core-icon-button icon="clear" label="Clear completed" ng-click="clearCompleted($event)"></core-icon-button>
+</core-toolbar>
+
+<core-list ng-show="items.length">
+    <core-item ng-repeat="item in items" unresolved>
+        <core-label id="item-{{ $index }}">
+            <paper-checkbox for role="checkbox" aria-labeledby="item-{{ $index }}" ng-checked="item.completed" ng-click="toggle($index)"></paper-checkbox>
+            {{ item.text }}
+        </core-label>
+    </core-item>
+</core-list>
+
+<div class="empty" ng-hide="items.length">
+    <a href="#/add">Add new itens</a> and do great things!
+</div>
+
+<a href="#/add"><paper-fab icon="create"></paper-fab></a>
