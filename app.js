@@ -64,6 +64,12 @@ app.controller('AddCtrl', ['$scope', '$location', 'Todos', function($scope, $loc
         $location.path('/')
     }
 
+    $scope.kbtrigger = function($event) {
+        if ($event.keyCode == 13) {
+            $scope.add()
+        }
+    }
+
 }])
 
 app.controller('ListCtrl', ['$scope', 'Todos', function($scope, Todos){
