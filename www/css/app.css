@@ -1,3 +1,9 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
 input[type=text] {
     border: none;
     border-bottom: #d3d3d3 1px solid;
