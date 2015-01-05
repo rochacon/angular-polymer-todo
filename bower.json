@@ -15,8 +15,7 @@
     "paper-input": "Polymer/paper-input#~0.5.2",
     "polymer": "Polymer/polymer#~0.5.2",
     "webcomponentsjs": "Polymer/webcomponentsjs#~0.5.2",
-    "ng-polymer-elements": "~0.2.0",
-    "ionic": "#master"
+    "ng-polymer-elements": "~0.2.0"
   },
   "resolutions": {
     "polymer": "~0.5.2"
